@@ -37,9 +37,8 @@ def run_scenario(scenario_class: TestFramework, method, scenario_name, results):
             end_time = time.time()
             elapsed_time = end_time - start_time
             elapseds.append(elapsed_time)
-
-            if method == "GitGPT 插件":
-                prompt = input("請輸入使用的 prompt: ")
+            if method == "使用 GitGPT 插件輔助":
+                prompt = input("請輸入第一個的 prompt: ")
                 prompt_log.append(prompt)
             print(f"完成 {method} {scenario_name}。耗時: {elapsed_time:.2f} 秒。\n\n")
             success = True
@@ -56,10 +55,13 @@ def run_scenario(scenario_class: TestFramework, method, scenario_name, results):
             elapseds.append(elapsed_time)
 
             retry = input("是否重試？(y/n): ").strip().lower()
+
+            if method == "使用 GitGPT 插件輔助":
+                prompt = input("請輸入第一個的 prompt: ")
+                prompt_log.append(prompt)
             if retry != "y":
                 break
             retry_count += 1
-
         finally:
             results[scenario_name][method] = {
                 "elapsed_time": elapseds,
@@ -74,8 +76,8 @@ def run_scenario(scenario_class: TestFramework, method, scenario_name, results):
 def main():
     logging.basicConfig(filename="error.log", level=logging.ERROR)
     scenarios = [
-        (InitGitRepo, "情境 1: 初始化 Git 儲存庫"),
-        (MergeToMain, "情境 2: 將 feature 分支合併到 main"),
+        # (InitGitRepo, "情境 1: 初始化 Git 儲存庫"),
+        # (MergeToMain, "情境 2: 將 feature 分支合併到 main"),
         (ResetCheck, "情境 3: 回到前兩個 commit 並檢查程式碼後返回"),
     ]
 
