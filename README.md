@@ -18,8 +18,8 @@
      - [GitGPT 插件](https://github.com/jimmyhealer/git-gpt-survey/releases/latest)
    - 安裝方式：
      - 按下 `Ctrl+Shift+P`，輸入 `Extensions: Install from VSIX...`。
-     - 選擇剛剛下載的 `git-gpt-0.0.1.vsix` 檔案。
-     - 或者使用指令 `code --install-extension git-gpt-0.0.1.vsix`。
+     - 選擇剛剛下載的 `git-gpt-0.0.2.vsix` 檔案。
+     - 或者使用指令 `code --install-extension git-gpt-0.0.2.vsix`。
 3. **閱讀以下的注意事項**
 4. **執行問卷程式**
    ```bash
