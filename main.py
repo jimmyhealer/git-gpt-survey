@@ -76,8 +76,8 @@ def run_scenario(scenario_class: TestFramework, method, scenario_name, results):
 def main():
     logging.basicConfig(filename="error.log", level=logging.ERROR)
     scenarios = [
-        # (InitGitRepo, "情境 1: 初始化 Git 儲存庫"),
-        # (MergeToMain, "情境 2: 將 feature 分支合併到 main"),
+        (InitGitRepo, "情境 1: 初始化 Git 儲存庫"),
+        (MergeToMain, "情境 2: 將 feature 分支合併到 main"),
         (ResetCheck, "情境 3: 回到前兩個 commit 並檢查程式碼後返回"),
     ]
 
