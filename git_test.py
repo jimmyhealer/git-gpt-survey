@@ -74,14 +74,12 @@ class TestFramework:
     # 操作聲明方法
     def init_directory(self):
         def action():
-            if not os.path.exists(self.repo_path):
-                os.makedirs(self.repo_path)
-            else:
+            if os.path.exists(self.repo_path):
                 logging.warning(
                     f"Directory {self.repo_path} already exists. Deleting and recreating."
                 )
                 shutil.rmtree(self.repo_path)
-                os.makedirs(self.repo_path)
+            os.makedirs(self.repo_path)
 
         self.actions.append(action)
         return self
