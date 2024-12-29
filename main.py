@@ -25,9 +25,9 @@ def run_scenario(scenario_class: TestFramework, method, scenario_name, results):
         print(f"開始 {method} {scenario_name}\n")
         print(task_description)
 
-        input("確保測試環境正確後，按 Enter 開始執行測試。")
         try:
             scenario.action()
+            input("確保測試環境正確後，按 Enter 開始執行測試。")
             start_time = time.time()
             for idx, checkpoint in enumerate(checkpoints):
                 input(f"檢核點 {idx + 1}: {checkpoint}，按 Enter 檢核。")
