@@ -152,11 +152,10 @@ class TestFramework:
         return self
 
     def valid_current_branch(self, branch):
-        if branch == "master":
-            branch = "main"
-
         def validation():
             current_branch = self.run_command("git branch --show-current")
+            if current_branch == "master":
+                current_branch = "main"
             self.assert_equal(current_branch, branch)
 
         self.add_validation(validation)
