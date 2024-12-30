@@ -86,7 +86,7 @@ class TestFramework:
 
     def git_init(self):
         def action():
-            self.run_command("git init")
+            self.run_command("git init --initial-branch=main")
 
         self.actions.append(action)
         return self
@@ -143,9 +143,10 @@ class TestFramework:
             branch_list = [
                 line.strip().replace("* ", "") for line in stdout.splitlines()
             ]
-            for branch in branches:
+            for branch in branch_list:
                 if branch == "master":
-                    branch = "main"
+                    branch_list.append("main")
+            for branch in branches:
                 self.assert_in(branch, branch_list)
 
         self.add_validation(validation)

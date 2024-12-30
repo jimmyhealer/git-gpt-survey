@@ -19,7 +19,7 @@ class InitGitRepo(TestFramework):
 
 資料夾位置：{self.repo_path}
 """, [
-            '確認擁有一個名為 main 的分支，且只有一個 commit 為 "Initial commit"。'
+            '確認擁有一個名為 main (master) 的分支，且只有一個 commit 為 "Initial commit"。'
         ]
 
     def valid_nth_commit_message(self, n, expected_message):
@@ -69,7 +69,7 @@ class MergeToMain(TestFramework):
 
         return f"""您已經初始化了一個 Git 儲存庫，並創建了兩個 commit。
 您現在要將 feat/new-file 分支合併到 main 分支。
-註：feat/new-file 分支不要刪除。
+註：feat/new-file 分支不要刪除，該專案初始分支已經設定為 main。
 
 資料夾位置：{self.repo_path}
 """, [
@@ -113,6 +113,7 @@ class ResetCheck(TestFramework):
         return f"""您已經初始化了一個 Git 儲存庫，並創建了三個 commit，現在有修改 file.txt 檔案。
 您現在要回到第一個 commit，看一下之前寫的文件 (檢核點 1)，然後返回最新的 commit 並且恢復之前修改的紀錄 (檢核點 2)。
 此場景有兩個檢核點，請依序完成。
+註：該專案初始分支已經設定為 main。
 
 資料夾位置：{self.repo_path}
 """, [
@@ -127,3 +128,31 @@ class ResetCheck(TestFramework):
 
         self.add_validation(validation)
         return self
+
+class RestoreFile(TestFramework):
+    def __init__(self):
+        super().__init__("./scenario_4")
+
+    def scenario(self):
+        self.init_directory()
+        self.git_init()
+        self.write_file("Version 1", "file.txt")
+        self.git_add_all_and_commit("Commit 1")
+        self.rm_file("file.txt")
+
+        self.valid_current_branch("main")
+        self.valid_content("file.txt", "Version 1")
+
+        return f"""您現在寫了一個檔案，您不小心把它刪除了。您希望從上一個 commit 中恢復這個檔案。
+註：該專案初始分支已經設定為 main。
+
+資料夾位置：{self.repo_path}
+""", [
+            '確認現在在 main 分支，且 file.txt 的內容為上一個 commit 的內容。',
+]
+    
+    def rm_file(self, file):
+        def action():
+            import os
+            os.remove(os.path.join(self.repo_path, file))
+        self.actions.append(action)
